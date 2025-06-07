@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  transition: background 1s ease;
+}
+
+body.sunny {
+  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+}
+
+body.cloudy {
+  background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+}
+
+body.rainy {
+  background: linear-gradient(135deg, #667db6 0%, #0082c8 50%, #004a7c 100%);
+}
+
+body.night {
+  background: linear-gradient(135deg, #232526 0%, #1c1c1c 100%);
+}
+
+/* Container with transparent blur effect */
+.container {
+  position: relative;
+  z-index: 10;
+  background: rgba(255 255 255 / 0.25);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 24px;
+  padding: 30px 40px;
+  width: 360px;
+  max-width: 90vw;
+  margin: 120px auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  color: #222;
+  user-select: none;
+}
+
+/* Floating weather icon */
+.weather-icon {
+  font-size: 60px;
+  margin-bottom: 18px;
+  animation: float 4s ease-in-out infinite;
+  color: #007bff;
+  user-select: none;
+  text-align: center;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Form heading */
+h1 {
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+/* Form styles */
+form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+form input[type="text"],
+form input[type="email"] {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1.8px solid rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  background: rgba(255 255 255 / 0.8);
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  background: rgba(255 255 255 / 1);
+}
+
+/* Submit button */
+button {
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 12px;
+  border: none;
+  background: #007bff;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+  transition: background-color 0.3s ease, transform 0.25s ease;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 86, 179, 0.7);
+}
+
+/* Success message */
+.success-message {
+  margin-top: 18px;
+  font-weight: 700;
+  color: #28a745;
+  text-align: center;
+  user-select: none;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .container {
+    width: 95vw;
+    padding: 24px 28px;
+  }
+}
+
+/* --- Clouds animation --- */
+
+.cloud {
+  position: fixed;
+  background: white;
+  background: radial-gradient(circle at 30% 30%, #fff, #cfd9de);
+  border-radius: 50%;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.05));
+  opacity: 0.85;
+  animation-timing-function: linear;
+  z-index: 5;
+}
+
+/* Multiple circles to form clouds */
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: white;
+  background: radial-gradient(circle at 30% 30%, #fff, #cfd9de);
+  border-radius: 50%;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.05));
+  opacity: 0.85;
+}
+
+.cloud-small {
+  width: 80px;
+  height: 50px;
+  top: 10vh;
+  left: -100px;
+  animation-name: drift-right-small;
+  animation-duration: 35s;
+  animation-iteration-count: infinite;
+}
+
+.cloud-small:before {
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 40px;
+}
+
+.cloud-small:after {
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 15px;
+}
+
+.cloud-medium {
+  width: 140px;
+  height: 80px;
+  top: 30vh;
+  left: -180px;
+  animation-name: drift-right-medium;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+}
+
+.cloud-medium:before {
+  width: 80px;
+  height: 80px;
+  top: 0;
+  left: 60px;
+}
+
+.cloud-medium:after {
+  width: 90px;
+  height: 90px;
+  top: 10px;
+  left: 30px;
+}
+
+.cloud-large {
+  width: 220px;
+  height: 110px;
+  top: 60vh;
+  left: -260px;
+  animation-name: drift-right-large;
+  animation-duration: 70s;
+  animation-iteration-count: infinite;
+}
+
+.cloud-large:before {
+  width: 130px;
+  height: 130px;
+  top: 0;
+  left: 110px;
+}
+
+.cloud-large:after {
+  width: 140px;
+  height: 140px;
+  top: 20px;
+  left: 60px;
+}
+
+/* Animations moving clouds horizontally */
+@keyframes drift-right-small {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 110vw;
+  }
+}
+
+@keyframes drift-right-medium {
+  0% {
+    left: -180px;
+  }
+  100% {
+    left: 110vw;
+  }
+}
+
+@keyframes drift-right-large {
+  0% {
+    left: -260px;
+  }
+  100% {
+    left: 110vw;
+  }
+}
+
+/* --- Wind lines animation --- */
+
+.wind-line {
+  position: fixed;
+  border-radius: 10px;
+  background: rgba(255 255 255 / 0.6);
+  opacity: 0.5;
+  z-index: 5;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.wind-line1 {
+  width: 150px;
+  height: 5px;
+  top: 15vh;
+  left: -150px;
+  animation-name: wind-right1;
+  animation-duration: 12s;
+}
+
+.wind-line2 {
+  width: 100px;
+  height: 3px;
+  top: 25vh;
+  left: -100px;
+  animation-name: wind-right2;
+  animation-duration: 10s;
+}
+
+.wind-line3 {
+  width: 180px;
+  height: 5px;
+  top: 45vh;
+  left: -180px;
+  animation-name: wind-right3;
+  animation-duration: 15s;
+}
+
+@keyframes wind-right1 {
+  0% {
+    left: -150px;
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    left: 110vw;
+    opacity: 0.6;
+  }
+}
+
+@keyframes wind-right2 {
+  0% {
+    left: -100px;
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    left: 110vw;
+    opacity: 0.7;
+  }
+}
+
+@keyframes wind-right3 {
+  0% {
+    left: -180px;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    left: 110vw;
+    opacity: 0.8;
+  }
+}
